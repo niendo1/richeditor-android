@@ -713,6 +713,7 @@ public class RichEditor extends WebView implements ValueCallback<String> {
    * @param color
    */
   public void setTextColor(String color) {
+    requestFocusFromTouch();
     exec("javascript:RE.prepareInsert();");
     exec("javascript:RE.setTextColor('" + color + "');");
   }
@@ -734,6 +735,7 @@ public class RichEditor extends WebView implements ValueCallback<String> {
    * @param color as string
    */
   public void setTextBackgroundColor(String color) {
+    requestFocusFromTouch();
     exec("javascript:RE.prepareInsert();");
     exec("javascript:RE.setTextBackgroundColor('" + color + "');");
   }

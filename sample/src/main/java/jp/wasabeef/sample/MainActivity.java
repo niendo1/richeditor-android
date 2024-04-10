@@ -190,7 +190,9 @@ public class MainActivity extends AppCompatActivity {
           @Override public void onDataReceived(String value) {
             if(!value.isEmpty())
                 mEditor.setTextColor(value);
-            }
+            else
+                mEditor.setTextColor("green");
+          }
         });
 
         mEditor.getSelectedText();
