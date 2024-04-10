@@ -1,4 +1,4 @@
 jdk:
-  - openjdk9
+  - openjdk20
 before_install:
   - ./scripts/prepareJitpackEnvironment.sh
