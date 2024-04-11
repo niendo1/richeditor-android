@@ -292,14 +292,15 @@ public class MainActivity extends AppCompatActivity {
     findViewById(R.id.action_insert_image).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        String image;
-        image=getContentResolver().SCHEME_ANDROID_RESOURCE +
-          "://" + getResources().getResourcePackageName(R.drawable.insert_image)
-          + '/' + getResources().getResourceTypeName(R.drawable.insert_image) + '/' + getResources().getResourceEntryName(R.drawable.bg_color);
+       // String image;
+       // image=getContentResolver().SCHEME_ANDROID_RESOURCE +
+       //   "://" + getResources().getResourcePackageName(R.drawable.insert_image)
+       //   + '/' + getResources().getResourceTypeName(R.drawable.insert_image) + '/' + getResources().getResourceEntryName(R.drawable.bg_color);
        //  image="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Hyoscyamus_niger_0003.JPG/449px-Hyoscyamus_niger_0003.JPG";
        // image="https://raw.githubusercontent.com/wasabeef/art/master/chip.jpg";
         //mEditor.insertImageAsBase64(Uri.parse(image),"alt","auto","");
         mEditor.insertImage("https://raw.githubusercontent.com/wasabeef/art/master/chip.jpg", "dachshund", "75%","",true);
+        //mEditor.insertHTML("<img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==' alt='Logo' title='Logo' style='display:block' width='5' height='5'>");
       }
     });
 
