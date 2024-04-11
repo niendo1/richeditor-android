@@ -1,6 +1,21 @@
 Change Log
 ==========
 
+Version 3.0.4 *(2024-04-)*
+----------------------------
+
+Bugfix:
+ 
+Feature:
+- setTextColor("initial") resets to default text color
+- setBackgroundColor("initial") resets to default background color
+
+Update:
+- gradle:8.3.2
+- openjdk17 from 21 for jitpack
+- gradle-8.7
+
+
 Version 3.0.1 *(2024-02-26)*
 ----------------------------
 

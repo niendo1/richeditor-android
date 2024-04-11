@@ -186,14 +186,14 @@ public class MainActivity extends AppCompatActivity {
         mEditor.setOnJSDataListener(new RichEditor.onJSDataListener() {
           @Override public void onDataReceived(String value) {
             if(!value.isEmpty()) {
+              mEditor.setTextColor("green");
+            } else {
               if (isChanged)
-                  mEditor.setTextColor("");
+                  mEditor.setTextColor("initial");
               else
                   mEditor.setTextColor(Color.CYAN);
               isChanged = !isChanged;
             }
-            else
-                mEditor.setTextColor("green");
           }
         });
 
@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         if (isChanged)
-           mEditor.setTextBackgroundColor("");
+           mEditor.setTextBackgroundColor("initial");
         else
           mEditor.setTextBackgroundColor(Color.GREEN);
         isChanged = !isChanged;

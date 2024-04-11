@@ -707,7 +707,7 @@ public class RichEditor extends WebView implements ValueCallback<String> {
 
   /**
    * set text color by string
-   *  if color isEmpty(), text color is reset to default value
+   *  if color=initial, text color is reset to default value
    * <pre>
    *   mEditor.setTextColor("red")
    * </pre>
@@ -729,7 +729,7 @@ public class RichEditor extends WebView implements ValueCallback<String> {
 
   /**
    * Sets Background color for text by string
-   * if color isEmpty(), background color is reset to default value
+   * if color=initial, background color is reset to default value
    * <pre>
    * mEditor.setTextColor("red")
    * </pre>

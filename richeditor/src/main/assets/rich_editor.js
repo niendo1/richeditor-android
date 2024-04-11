@@ -315,7 +315,7 @@ RE.toggleUnderline = function() {
 
 RE.setTextColor = function(color) {
     RE.restorerange();
-    if(color == "") color = RE.editor.style.color;
+    if(color == "initial") color = RE.editor.style.color;
     document.execCommand("styleWithCSS", null, true);
     document.execCommand('foreColor', false, color);
     document.execCommand("styleWithCSS", null, false);
@@ -323,7 +323,6 @@ RE.setTextColor = function(color) {
 
 RE.setTextBackgroundColor = function(color) {
     RE.restorerange();
-    if(color == "") color = RE.editor.style.backgroundColor;
     document.execCommand("styleWithCSS", null, true);
     document.execCommand('hiliteColor', false, color);
     document.execCommand("styleWithCSS", null, false);
