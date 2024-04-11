@@ -1,10 +1,7 @@
 package jp.wasabeef.sample;
 
-import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -188,16 +185,20 @@ public class MainActivity extends AppCompatActivity {
         //    so the selected text is for example 'green', the colored green
         mEditor.setOnJSDataListener(new RichEditor.onJSDataListener() {
           @Override public void onDataReceived(String value) {
-            if(!value.isEmpty())
-                mEditor.setTextColor(value);
+            if(!value.isEmpty()) {
+              if (isChanged)
+                  mEditor.setTextColor("");
+              else
+                  mEditor.setTextColor(Color.CYAN);
+              isChanged = !isChanged;
+            }
             else
                 mEditor.setTextColor("green");
           }
         });
 
         mEditor.getSelectedText();
-        //mEditor.setTextColor(isChanged ? Color.BLACK : Color.RED);
-        //isChanged = !isChanged;
+
       }
     });
 
@@ -206,7 +207,10 @@ public class MainActivity extends AppCompatActivity {
 
       @Override
       public void onClick(View v) {
-        mEditor.setTextBackgroundColor(isChanged ? Color.TRANSPARENT : Color.YELLOW);
+        if (isChanged)
+           mEditor.setTextBackgroundColor("");
+        else
+          mEditor.setTextBackgroundColor(Color.GREEN);
         isChanged = !isChanged;
       }
     });
