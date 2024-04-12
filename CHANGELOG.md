@@ -1,11 +1,12 @@
 Change Log
 ==========
 
-Version 3.0.4 *(2024-04-)*
+Version 3.0.2 *(2024-04-)*
 ----------------------------
 
 Bugfix:
- 
+- add onWindowFocusChanged() by IntuzMayurS
+
 Feature:
 - setTextColor("initial") resets to default text color
 - setBackgroundColor("initial") resets to default background color

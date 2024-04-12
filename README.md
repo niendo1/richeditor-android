@@ -154,6 +154,8 @@ editor.setEditorHeight(200);
 ```java
 editor.setEditorFontSize(22);
 editor.setEditorFontColor(Color.RED);
+editor.setTextColor("initial");
+editor.setFontFamily("fantasy");
 ```
 
 **Background**
@@ -247,7 +249,7 @@ Thanks
 License
 -------
 
-    Copyright (C) 2022-2023 niendo
+    Copyright (C) 2022-2024 niendo
     Copyright (C) 2020 Wasabeef
 
     Licensed under the Apache License, Version 2.0 (the "License");
