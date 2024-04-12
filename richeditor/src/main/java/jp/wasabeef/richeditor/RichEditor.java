@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -63,6 +64,24 @@ public class RichEditor extends WebView implements ValueCallback<String> {
   }
 
   private final AtomicBoolean mEvaluateFinished = new AtomicBoolean(false);
+
+
+  /**
+   * Bring back focus in to the editor
+   * by IntuzMayurS
+   *
+   */
+  @Override
+  public void onWindowFocusChanged(boolean hasWindowFocus) {
+    super.onWindowFocusChanged(hasWindowFocus);
+    if (hasWindowFocus) {
+      requestFocus();
+      post(() -> {
+        InputMethodManager imm = getContext().getSystemService(InputMethodManager.class);
+        imm.showSoftInput(this, 0);
+      });
+    }
+  }
 
   /**
    * Callback interface to receive data from the editor
