@@ -100,7 +100,7 @@ repositories {
 }
 
 dependencies {
-  implementation 'com.github.niendo1:richeditor-android:3.0.0'
+  implementation 'com.github.niendo1:richeditor-android:3.0.2'
 }
 ```
 
@@ -119,7 +119,7 @@ dependencies {
 <dependency>
 	    <groupId>com.github.niendo1</groupId>
         <artifactId>richeditor-android</artifactId>
-	    <version>3.0.0</version>
+	    <version>3.0.2</version>
 </dependency>
 
 ```
@@ -129,7 +129,7 @@ dependencies {
 ```leiningen
 
 :repositories [["jitpack" "https://jitpack.io"]]
-:dependencies [[com.github.niendo1/richeditor-android "3.0.0"]]
+:dependencies [[com.github.niendo1/richeditor-android "3.0.2"]]
 
 ```
 
@@ -138,7 +138,7 @@ dependencies {
 ```sbt
 
 resolvers += "jitpack" at "https://jitpack.io"
-libraryDependencies += "com.github.niendo1" % "richeditor-android" % "3.0.0"
+libraryDependencies += "com.github.niendo1" % "richeditor-android" % "3.0.2"
 
 ```
 
