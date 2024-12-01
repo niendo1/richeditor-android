@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-  compileSdk 34
+  compileSdk COMPILE_SDK_VERSION as int
 
   defaultConfig {
     minSdkVersion MIN_SDK_VERSION as int
@@ -9,6 +9,11 @@ android {
     versionCode VERSION_CODE as int
     versionName VERSION_NAME
   }
+
+    compileOptions {
+      sourceCompatibility JavaVersion.VERSION_17
+      targetCompatibility JavaVersion.VERSION_17
+    }
 
   // SigningConfigs
   apply from: '../signingConfigs/debug.gradle', to: android
@@ -36,5 +41,6 @@ repositories {
 
 dependencies {
   implementation project(':richeditor')
-  implementation "androidx.appcompat:appcompat:1.6.1"
+  implementation "androidx.appcompat:appcompat:1.7.0"
+  implementation(platform("org.jetbrains.kotlin:kotlin-bom:2.0.20"))
 }
