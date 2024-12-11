@@ -1,6 +1,21 @@
 Change Log
 ==========
 
+Version 3.0.3 *(2024-12-08)*
+----------------------------
+
+Bugfix:
+
+Feature:
+
+Update:
+- gradle-lib:8.7.3
+- gradle:8.11.1
+- appcompat:1.7.0
+- kotlin-bom:2.0.2
+- COMPILE_SDK_VERSION=35
+- TARGET_SDK_VERSION=35
+
 Version 3.0.2 *(2024-04-15)*
 ----------------------------
 
