@@ -114,7 +114,7 @@ RE.runCallbackQueue = function() {
 };
 
 RE.getCommandQueue = function() {
-    var commands = JSON.stringify( RE.callbackQueue );
+    var commands = encodeURI(JSON.stringify( RE.callbackQueue ));
     RE.callbackQueue = [];
     return commands;
 };
@@ -583,7 +583,10 @@ if (element=="link" || element=="") {
         ret.push({"href":this.href});
         ret.push({"text":this.innerHTML});
         ret.push({"title":this.title});
-        window.location.href = "re-click://" + JSON.stringify(ret);
+        var x=encodeURI(JSON.stringify(ret));
+        console.log("Response value: " + x);
+        window.location.href = "re-click://" + encodeURI(JSON.stringify(ret));
+
         }
      );
   }
