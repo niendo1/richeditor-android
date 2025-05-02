@@ -1,14 +1,12 @@
 package jp.wasabeef.richeditor;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -141,9 +139,9 @@ public class RichEditor extends WebView implements ValueCallback<String> {
   }
 
   private static final String SETUP_HTML = "file:///android_asset/rich_editor.html";
-  private static final String CALLBACK_SCHEME = "re-callback://";
-  private static final String STATE_SCHEME = "re-state://";
-  private static final String CLICK_SCHEME= "re-click://";
+  private static final String CALLBACK_SCHEME = "http://re-callback";
+  private static final String STATE_SCHEME = "http://re-state";
+  private static final String CLICK_SCHEME= "http://re-click";
   private boolean isReady = false;
   private OnTextChangeListener mTextChangeListener;
   private onClickListener mClickListener;
@@ -243,7 +241,7 @@ public class RichEditor extends WebView implements ValueCallback<String> {
     try {
       unescaped = URLDecoder.decode(value, "UTF-8");
     } catch (UnsupportedEncodingException e) {
-      e.printStackTrace();
+      Log.e("RichEditor","onReceiveValue:", e);
     }
     if (!"null".equals(unescaped)) {
 
@@ -261,18 +259,18 @@ public class RichEditor extends WebView implements ValueCallback<String> {
    private void callback(String value) {
 
     if (mTextChangeListener != null) {
-      mTextChangeListener.onTextChange(value.replaceFirst(CALLBACK_SCHEME, ""));
+      mTextChangeListener.onTextChange(value);
     }
   }
 
   private void callback_click(String value) {
     if (mClickListener != null) {
-      mClickListener.onClick(value.replaceFirst(CLICK_SCHEME, ""));
+      mClickListener.onClick(value);
     }
   }
 
-  private void stateCheck(String text) {
-    String state = text.replaceFirst(STATE_SCHEME, "").toUpperCase(Locale.ENGLISH);
+  private void callback_stateCheck(String text) {
+    String state = text.toUpperCase(Locale.ENGLISH);
     List<Type> types = new ArrayList<>();
     for (Type type : Type.values()) {
       if (TextUtils.indexOf(state, type.name()) != -1) {
@@ -321,11 +319,7 @@ public class RichEditor extends WebView implements ValueCallback<String> {
   }
 
   private void load(String trigger) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-      evaluateJavascript(trigger, null);
-    } else {
-      loadUrl(trigger);
-    }
+    evaluateJavascript(trigger, null);
   }
 
 
@@ -361,7 +355,7 @@ public class RichEditor extends WebView implements ValueCallback<String> {
     try {
       exec("javascript:RE.setHtml('" + URLEncoder.encode(contents, "UTF-8") + "');");
     } catch (UnsupportedEncodingException e) {
-      // No handling
+      Log.e("RichEditor","setHTML:", e);
     }
   }
 
@@ -794,7 +788,7 @@ public class RichEditor extends WebView implements ValueCallback<String> {
    */
   public void setFontSize(int fontSize) {
     if (fontSize > 7 || fontSize < 1) {
-      Log.e("RichEditor", "Font size should have a value between 1-7");
+      Log.w("RichEditor", "Font size should have a value between 1-7");
     }
     exec("javascript:RE.setFontSize('" + fontSize + "');");
   }
@@ -899,7 +893,7 @@ public class RichEditor extends WebView implements ValueCallback<String> {
       exec("javascript:RE.prepareInsert();");
       exec("javascript:RE.insertHTML('" + URLEncoder.encode(contents, "UTF-8") + "');");
     } catch (UnsupportedEncodingException e) {
-      // No handling
+      Log.e("RichEditor","insertHTML", e);
     }
   }
 
@@ -966,7 +960,7 @@ public class RichEditor extends WebView implements ValueCallback<String> {
     try {
       inputStream = getContext().getContentResolver().openInputStream(imageURI);
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
+      Log.e("RichEditor","insertImageAsBase64 Inputstream:", e);
     }
 
     BitmapFactory.Options options = new BitmapFactory.Options();
@@ -975,7 +969,7 @@ public class RichEditor extends WebView implements ValueCallback<String> {
     try {
       inputStream.close();
     } catch (IOException e) {
-      e.printStackTrace();
+      Log.e("RichEditor","insertImageAsBase64 Inputstream.close:", e);
     }
     String type = getContext().getContentResolver().getType(imageURI).toLowerCase();
     String tag = "data:" + type + ";charset=utf-8;base64,";
@@ -1166,45 +1160,26 @@ public class RichEditor extends WebView implements ValueCallback<String> {
       }
     }
 
-    /**
-     * @param view The WebView that is initiating the callback.
-     * @param url The URL to be loaded.
-     * @return
-     */
-    @Override
-    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-      String decode = Uri.decode(url);
-
-      if (TextUtils.indexOf(url, CALLBACK_SCHEME) == 0) {
-        callback(decode);
-        return true;
-      } else if (TextUtils.indexOf(url, STATE_SCHEME) == 0) {
-        stateCheck(decode);
-        return true;
-      }
-
-      return super.shouldOverrideUrlLoading(view, url);
-    }
 
     /**
      * @param view The WebView that is initiating the callback.
      * @param request Object containing the details of the request.
      * @return
      */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
       final String url = request.getUrl().toString();
       String decode = Uri.decode(url);
-
-      if (TextUtils.indexOf(url, CALLBACK_SCHEME) == 0) {
-        callback(decode);
+      String list=decode.substring(decode.indexOf("?")+1);
+      if (decode.startsWith(CALLBACK_SCHEME)) {
+        callback(list);
         return true;
-      } else if (TextUtils.indexOf(url, STATE_SCHEME) == 0) {
-        stateCheck(decode);
+      } else if (decode.startsWith(STATE_SCHEME)) {
+        callback_stateCheck(list);
         return true;
-      } else if (TextUtils.indexOf(url, CLICK_SCHEME) == 0) {
-        callback_click(decode);
+      } else if (decode.startsWith(CLICK_SCHEME) ) {
+        callback_click(list);
         return true;
       }
       return super.shouldOverrideUrlLoading(view, request);

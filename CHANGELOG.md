@@ -1,6 +1,19 @@
 Change Log
 ==========
 
+Version 3.0.4 *(2025-05-08)*
+----------------------------
+
+Bugfix:
+- Layout fixes for 35
+- callback not working (href needs to start with "http://)
+
+Feature:
+- better logging
+
+Update:
+
+
 Version 3.0.3 *(2024-12-08)*
 ----------------------------
 

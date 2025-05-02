@@ -109,15 +109,12 @@ RE.runCallbackQueue = function() {
     }
 
     setTimeout(function() {
-        window.location.href = "re-callback://" + RE.getCommandQueue();
+            //console.log("Response value: " + x);
+            window.location.href = "http://re-callback?" + encodeURI(JSON.stringify(RE.callbackQueue));
     }, 0);
 };
 
-RE.getCommandQueue = function() {
-    var commands = encodeURI(JSON.stringify( RE.callbackQueue ));
-    RE.callbackQueue = [];
-    return commands;
-};
+
 
 RE.callback = function(method) {
     RE.callbackQueue.push(method);
@@ -583,10 +580,8 @@ if (element=="link" || element=="") {
         ret.push({"href":this.href});
         ret.push({"text":this.innerHTML});
         ret.push({"title":this.title});
-        var x=encodeURI(JSON.stringify(ret));
-        console.log("Response value: " + x);
-        window.location.href = "re-click://" + encodeURI(JSON.stringify(ret));
-
+        //console.log("Response value: " + x);
+        window.location.href = "http://re-click?" + encodeURI(JSON.stringify(ret));
         }
      );
   }
@@ -895,8 +890,7 @@ RE.enabledEditingItems = function(e) {
     if (formatBlock.length > 0) {
         items.push(formatBlock);
     }
-
-    window.location.href = "re-state://" + encodeURI(items.join(','));
+    window.location.href = "http://re-state?" + encodeURI(JSON.stringify(items));
 }
 
 RE.focus = function() {
