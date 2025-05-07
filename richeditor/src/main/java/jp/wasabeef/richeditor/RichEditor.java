@@ -30,7 +30,7 @@ import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Copyright (C) 2022-2024 niendo
+ * Copyright (C) 2022-2025 niendo
  * Copyright (C) 2017 Kishan Jadav
  * Copyright (C) 2020 Wasabeef
  * <p>
@@ -139,9 +139,9 @@ public class RichEditor extends WebView implements ValueCallback<String> {
   }
 
   private static final String SETUP_HTML = "file:///android_asset/rich_editor.html";
-  private static final String CALLBACK_SCHEME = "http://re-callback";
-  private static final String STATE_SCHEME = "http://re-state";
-  private static final String CLICK_SCHEME= "http://re-click";
+  private static final String CALLBACK_SCHEME = "http://richeditor/callback";
+  private static final String STATE_SCHEME = "http://richeditor/state";
+  private static final String CLICK_SCHEME= "http://richeditor/click";
   private boolean isReady = false;
   private OnTextChangeListener mTextChangeListener;
   private onClickListener mClickListener;
@@ -270,15 +270,14 @@ public class RichEditor extends WebView implements ValueCallback<String> {
   }
 
   private void callback_stateCheck(String text) {
-    String state = text.toUpperCase(Locale.ENGLISH);
-    List<Type> types = new ArrayList<>();
-    for (Type type : Type.values()) {
-      if (TextUtils.indexOf(state, type.name()) != -1) {
-        types.add(type);
-      }
-    }
-
     if (mDecorationStateListener != null) {
+      String state = text.toUpperCase(Locale.ENGLISH);
+      List<Type> types = new ArrayList<>();
+      for (Type type : Type.values()) {
+        if (TextUtils.indexOf(state, type.name()) != -1) {
+          types.add(type);
+        }
+      }
       mDecorationStateListener.onStateChangeListener(state, types);
     }
   }

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2022-2024 peter@niendo.de
+ * Copyright (C) 2022-2025 peter@niendo.de
  * Copyright (C) 2017 Kishan Jadav
  * Copyright (C) 2015 Wasabeef
  *
@@ -109,8 +109,7 @@ RE.runCallbackQueue = function() {
     }
 
     setTimeout(function() {
-            //console.log("Response value: " + x);
-            window.location.href = "http://re-callback?" + encodeURI(JSON.stringify(RE.callbackQueue));
+            RE.setCallBack("callback", RE.callbackQueue);
     }, 0);
 };
 
@@ -580,8 +579,7 @@ if (element=="link" || element=="") {
         ret.push({"href":this.href});
         ret.push({"text":this.innerHTML});
         ret.push({"title":this.title});
-        //console.log("Response value: " + x);
-        window.location.href = "http://re-click?" + encodeURI(JSON.stringify(ret));
+        RE.setCallBack("click", ret);
         }
      );
   }
@@ -890,7 +888,12 @@ RE.enabledEditingItems = function(e) {
     if (formatBlock.length > 0) {
         items.push(formatBlock);
     }
-    window.location.href = "http://re-state?" + encodeURI(JSON.stringify(items));
+    RE.setCallBack("state", items);
+}
+
+RE.setCallBack = function(schema, items) {
+    //console.log("Response value: " + x);
+    window.location.href = "http://richeditor/" + schema + "?" + encodeURI(JSON.stringify(items));
 }
 
 RE.focus = function() {
@@ -929,8 +932,9 @@ RE.editor.addEventListener("keyup", function(e) {
         RE.enabledEditingItems(e);
     }
 });
-RE.editor.addEventListener("click", RE.enabledEditingItems);
 */
+RE.editor.addEventListener("click", RE.enabledEditingItems);
+
 
 //https://stackoverflow.com/questions/18552336/prevent-contenteditable-adding-div-on-enter-chrome
 RE.editor.addEventListener("keydown", function(e) {

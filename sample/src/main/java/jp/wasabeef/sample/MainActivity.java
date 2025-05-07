@@ -9,6 +9,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import jp.wasabeef.richeditor.RichEditor;
 
+/**
+ * Copyright (C) 2022-2025 niendo
+ * Copyright (C) 2017 Kishan Jadav
+ * Copyright (C) 2020 Wasabeef
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 public class MainActivity extends AppCompatActivity {
 
   private RichEditor mEditor;
@@ -18,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    mEditor = (RichEditor) findViewById(R.id.editor);
+    mEditor = findViewById(R.id.editor);
     mEditor.setEditorHeight(200);
     mEditor.setEditorFontSize(22);
     mEditor.setEditorFontColor(Color.RED);
@@ -30,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     mEditor.setPlaceholder("Insert text here...");
     //mEditor.setInputEnabled(false);
     mEditor.LoadFont("Alita Brush","Alita Brush.ttf");
-    mPreview = (TextView) findViewById(R.id.preview);
+    mPreview = findViewById(R.id.preview);
 
     mEditor.setOnTextChangeListener(new RichEditor.OnTextChangeListener() {
       @Override
@@ -41,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
         mEditor.getHtml();
       }
     });
+
+   // mEditor.setOnDecorationChangeListener(new RichEditor.OnDecorationStateListener() {
+   //   @Override public void onStateChangeListener(String text, List<RichEditor.Type> types) {
+   //
+    //   }
+    //  });
 
     findViewById(R.id.action_undo).setOnClickListener(new View.OnClickListener() {
       @Override
